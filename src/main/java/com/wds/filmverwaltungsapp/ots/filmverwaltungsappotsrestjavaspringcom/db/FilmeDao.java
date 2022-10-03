@@ -11,22 +11,22 @@ import java.util.List;
 
 public interface FilmeDao {
     @RegisterFieldMapper(Film.class)
-    @SqlQuery("select * from Filme a ")
+    @SqlQuery("select * from filmverwaltungsappDB.filme a ")
     List<Film> getAllFilme();
 
     @RegisterFieldMapper(Film.class)
-    @SqlUpdate("update Filme set filmname = :filmname where film_id = :film_id and email= :email")
+    @SqlUpdate("update filmverwaltungsappDB.filme set filmname = :filmname where film_id = :film_id and email= :email")
     int updateFilm(@BindBean Film film);
 
     @RegisterFieldMapper(Film.class)
-    @SqlUpdate("insert into Filme values (:film_id, :email, :bewertung, :favorit, :speichermedium_id)")
+    @SqlUpdate("insert into filmverwaltungsappDB.filme values (:film_id, :email, :bewertung, :favorit, :speichermedium_id)")
     int insertFilm(@BindBean Film film);
 
     @RegisterFieldMapper(Film.class)
-    @SqlQuery("select max(a.film_id and a.email) from Filme a")
+    @SqlQuery("select max(a.film_id and a.email) from filmverwaltungsappDB.filme a")
     int getMaxId();
 
     @RegisterFieldMapper(Film.class)
-    @SqlUpdate("delete from Filme where film_id = :film_id and email = :email")
-    int deleteFilm(@Bind("film_id") int film_id);
+    @SqlUpdate("delete from filmverwaltungsappDB.filme where film_id = :film_id and email = :email")
+    int deleteFilm(@Bind("film_id") int film_id, @Bind("email") String email);
 }
