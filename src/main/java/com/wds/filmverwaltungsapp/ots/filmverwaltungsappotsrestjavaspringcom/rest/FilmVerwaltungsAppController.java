@@ -34,7 +34,7 @@ public class FilmVerwaltungsAppController {
         return speichermedienDao.getAllSpeichermedien();
     }
 
-    @PutMapping(path = "filme/{film_ID}/{email}")
+    @PutMapping(path = "filme/{email}/{film_ID}")
     public ResponseEntity<Void> UpdateFilmeById(@PathVariable int film_ID, @PathVariable int email, @RequestBody Film film) {
 
         System.out.println(film);
@@ -58,7 +58,7 @@ public class FilmVerwaltungsAppController {
         }
     }
 
-    @DeleteMapping(path = "filme/{film_ID}/{email}")
+    @DeleteMapping(path = "filme/{email}/{film_ID}")
     public ResponseEntity<Void> deleteFilm(@PathVariable int film_ID, @PathVariable String email) {
 
         System.out.println(film_ID + ' ' + email);
