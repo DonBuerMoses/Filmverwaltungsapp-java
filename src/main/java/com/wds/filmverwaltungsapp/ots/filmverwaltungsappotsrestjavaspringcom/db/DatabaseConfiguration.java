@@ -21,27 +21,6 @@ public class DatabaseConfiguration {
         return jdbiFactoryBean;
     }
 
-  /*@Inject
-  public DatabaseConfiguration(
-    DataSource dataSource,
-    Set<ArgumentFactory> arguments,
-    Set<ColumnMapper> mappers,
-    Set<ColumnMapperFactory> mapperFactories
-  ) {
-    jdbi = Jdbi.create(dataSource);
-
-    jdbi.installPlugin(new SqlObjectPlugin());
-    // etc
-
-    jdbi.getConfig(ResultProducers.class).allowNoResults(true);
-    jdbi.setTransactionHandler(new SerializableTransactionRunner());
-    // etc
-
-    arguments.forEach(jdbi::registerArgument);
-    mapperFactories.forEach(jdbi::registerColumnMapper);
-    mappers.forEach(jdbi::registerColumnMapper);
-  }*/
-
     @Bean
     public FilmeDao filmeDao(Jdbi jdbi) {
         return jdbi.onDemand(FilmeDao.class);
@@ -50,5 +29,10 @@ public class DatabaseConfiguration {
     @Bean
     public SpeichermedienDao speichermedienDao(Jdbi jdbi) {
         return jdbi.onDemand(SpeichermedienDao.class);
+    }
+
+    @Bean
+    public NutzerDao nutzerDao(Jdbi jdbi) {
+        return jdbi.onDemand(NutzerDao.class);
     }
 }

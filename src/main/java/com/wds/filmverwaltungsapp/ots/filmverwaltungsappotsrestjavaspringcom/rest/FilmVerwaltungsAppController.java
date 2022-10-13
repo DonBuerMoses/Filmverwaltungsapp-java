@@ -1,10 +1,11 @@
 package com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.rest;
 
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.db.FilmeDao;
+import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.db.NutzerDao;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.db.SpeichermedienDao;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Film;
+import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Nutzer;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Speichermedium;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +16,15 @@ import java.util.List;
 @RequestMapping("/")
 public class FilmVerwaltungsAppController {
 
-    @Autowired
     FilmeDao filmeDao;
-
-    @Autowired
     SpeichermedienDao speichermedienDao;
+    NutzerDao nutzerDao;
+
+    public FilmVerwaltungsAppController(FilmeDao filmeDao, SpeichermedienDao speichermedienDao, NutzerDao nutzerDao) {
+        this.filmeDao = filmeDao;
+        this.speichermedienDao = speichermedienDao;
+        this.nutzerDao = nutzerDao;
+    }
 
 
     @GetMapping(path = "/filme")
@@ -34,8 +39,24 @@ public class FilmVerwaltungsAppController {
         return speichermedienDao.getAllSpeichermedien();
     }
 
+    @GetMapping(path = "/nutzer")
+    public List<Nutzer> getAllNutzer() {
+
+        return nutzerDao.getAllNutzer();
+    }
+
+    @GetMapping(path = "filme/{email}")
+    public List<Film> getAllFilmeOfNutzerbyEmail(@PathVariable String email) {
+        return filmeDao.getAllFilmeOfNutzer(email);
+    }
+
+    @GetMapping(path = "filme/{email}/{film_id}")
+    public Film getFilmbyId(@PathVariable int film_id, @PathVariable String email) {
+        return filmeDao.getFilmById(film_id, email);
+    }
+
     @PutMapping(path = "filme/{email}/{film_ID}")
-    public ResponseEntity<Void> UpdateFilmeById(@PathVariable int film_ID, @PathVariable int email, @RequestBody Film film) {
+    public ResponseEntity<Void> updateFilmeById(@PathVariable int film_ID, @PathVariable String email, @RequestBody Film film) {
 
         System.out.println(film);
         int updateCount = filmeDao.updateFilm(film);
