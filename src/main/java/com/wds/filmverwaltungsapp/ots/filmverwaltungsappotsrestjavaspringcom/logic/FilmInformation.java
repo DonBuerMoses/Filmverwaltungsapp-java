@@ -12,20 +12,21 @@ import java.util.stream.Collectors;
 
 public class FilmInformation {
 
-    /*public List<FilmInfoModel> getFilmInfoModels(FilmeDao filmeDao) {
+    public List<FilmInfoModel> getFilmInfoModels(FilmeDao filmeDao, SpeichermedienDao speichermedienDao) {
         List<Film> filme = filmeDao.getAllFilme();
         List<FilmInfoModel> filmInfoModels = new ArrayList<>();
-        List<Speichermedium> speichermedien = SpeichermedienDao.getAllSpeichermedien();
+        //List<Speichermedium> speichermedien = speichermedienDao.getAllSpeichermedien();
         for(int i = 0; i < filme.size(); i++) {
             Film film = filme.get(i);
-            List<Speichermedium> regisseure = filmRegisseure.stream()
-                    .map(filmRegisseur -> SpeichermedienDao.getRegisseur(filmRegisseur.getRegisseurID()))
-                    .peek(x -> System.out.println(x))
-                    .collect(Collectors.toList());
-            filmInfoModels.add(new FilmInfoModel(film, regisseure));
+            Speichermedium speichermedium = speichermedienDao.getSpeichermediumById(film.getSpeichermedien_id());
+                    //.map(filmRegisseur -> SpeichermedienDao.getSpeichermedium(filmRegisseur.getRegisseurID()))
+                    //.map(film -> SpeichermedienDao.getSpeichermedium(film.getRegisseurID()))
+                    //.peek(x -> System.out.println(x))
+                    //.collect(Collectors.toList());
+            filmInfoModels.add(new FilmInfoModel(film, speichermedium));
 
         }
 
         return filmInfoModels;
-    }*/
+    }
 }

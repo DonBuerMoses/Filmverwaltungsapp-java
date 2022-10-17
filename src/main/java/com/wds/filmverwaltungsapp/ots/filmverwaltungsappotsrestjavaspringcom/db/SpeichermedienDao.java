@@ -1,5 +1,6 @@
 package com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.db;
 
+import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Film;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Speichermedium;
 import org.jdbi.v3.sqlobject.config.RegisterFieldMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
@@ -14,6 +15,10 @@ public interface SpeichermedienDao {
     @RegisterFieldMapper(Speichermedium.class)
     @SqlQuery("select * from filmverwaltungsappDB.speichermedien a")
     List<Speichermedium> getAllSpeichermedien();
+
+    @RegisterFieldMapper(Speichermedium.class)
+    @SqlQuery("select * from filmverwaltungsappDB.speichermedien where speichermedien_id = :speichermedien_id")
+    Speichermedium getSpeichermediumById(@Bind("speichermedien_id") int speichermedien_id);
 
     @RegisterFieldMapper(Speichermedium.class)
     @SqlUpdate("update filmverwaltungsappDB.speichermedien set bezeichnung = :bezeichnung where speichermedien_id = :speichermedien_id")

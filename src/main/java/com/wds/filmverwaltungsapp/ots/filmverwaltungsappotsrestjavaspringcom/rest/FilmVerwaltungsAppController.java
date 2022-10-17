@@ -6,6 +6,8 @@ import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.db.
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Film;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Nutzer;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Speichermedium;
+import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.logic.FilmInformation;
+import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.model.FilmInfoModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +39,11 @@ public class FilmVerwaltungsAppController {
     public List<Speichermedium> getAllSpeichermedien() {
 
         return speichermedienDao.getAllSpeichermedien();
+    }
+
+    @GetMapping(path = "speichermedien/{speichermedien_id}")
+    public Speichermedium getSpeichermediumById(@PathVariable int speichermedien_id) {
+        return speichermedienDao.getSpeichermediumById(speichermedien_id);
     }
 
     @GetMapping(path = "/nutzer")
@@ -88,5 +95,10 @@ public class FilmVerwaltungsAppController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping(path = "/filmeinfos")
+    public List<FilmInfoModel> getAllFilmeInfos() {
+        return (new FilmInformation().getFilmInfoModels(filmeDao, speichermedienDao));
     }
 }
