@@ -1,20 +1,19 @@
 package com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.model;
 
-import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Film;
-import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Speichermedium;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilmInfoModel {
 
-    private Film film;
-    private Speichermedium speichermedium;
+    private int film_ID;
+    private String email;
+    private int bewertung;
+    private boolean favorit;
+    private String speichermedium;
 
 
 }

@@ -99,6 +99,11 @@ public class FilmVerwaltungsAppController {
 
     @GetMapping(path = "/filmeinfos")
     public List<FilmInfoModel> getAllFilmeInfos() {
-        return (new FilmInformation().getFilmInfoModels(filmeDao, speichermedienDao));
+        return (new FilmInformation().getAllFilmeInfos(filmeDao, speichermedienDao));
+    }
+
+    @GetMapping(path = "/filmeinfos/{email}")
+    public List<FilmInfoModel> getFilmeInfosOfNutzer(@PathVariable String email) {
+        return (new FilmInformation().getFilmInfosOfNutzer(filmeDao, speichermedienDao, email));
     }
 }
