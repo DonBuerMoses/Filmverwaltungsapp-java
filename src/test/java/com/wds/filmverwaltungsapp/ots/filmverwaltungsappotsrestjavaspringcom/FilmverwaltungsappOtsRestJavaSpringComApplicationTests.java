@@ -16,7 +16,7 @@ class FilmverwaltungsappOtsRestJavaSpringComApplicationTests {
 	void contextLoads() {
 	}
 
-	@Test
+	/*@Test
 	void getFilmeByNutzer() throws IOException {
 		String pathVar = "user";
 		URL url = new URL("http://localhost:8080/service/rest/" + pathVar);
@@ -30,6 +30,6 @@ class FilmverwaltungsappOtsRestJavaSpringComApplicationTests {
 
 		System.out.println(responsecode);
 
-	}
+	}*/
 
 }
