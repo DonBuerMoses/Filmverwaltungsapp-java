@@ -19,15 +19,15 @@ public interface FilmeDao {
     List<Film> getAllFilmeOfNutzer(String email);
 
     @RegisterFieldMapper(Film.class)
-    @SqlQuery("select * from filmverwaltungsappDB.filme where film_id = :film_id and email = :email")
-    Film getFilmById(@Bind("film_id") int film_id, @Bind("email") String email);
+    @SqlQuery("select * from filmverwaltungsappDB.filme where film_id = :film_ID and email = :email")
+    Film getFilmById(@Bind("film_ID") int film_ID, @Bind("email") String email);
 
     @RegisterFieldMapper(Film.class)
     @SqlUpdate("update filmverwaltungsappDB.filme set bewertung = :bewertung and favorit = :favorit and speichermedium = :speichermedium where film_id = :film_id and email= :email")
     int updateFilm(@BindBean Film film);
 
     @RegisterFieldMapper(Film.class)
-    @SqlUpdate("insert into filmverwaltungsappDB.filme values (:film_id, :email, :bewertung, :favorit, :speichermedium_id)")
+    @SqlUpdate("insert into filmverwaltungsappDB.filme values (:film_ID, :email, :bewertung, :favorit, :speichermedien_id)")
     int insertFilm(@BindBean Film film);
 
     @RegisterFieldMapper(Film.class)
@@ -35,6 +35,6 @@ public interface FilmeDao {
     int getMaxId();
 
     @RegisterFieldMapper(Film.class)
-    @SqlUpdate("delete from filmverwaltungsappDB.filme where film_id = :film_id and email = :email")
-    int deleteFilm(@Bind("film_id") int film_id, @Bind("email") String email);
+    @SqlUpdate("delete from filmverwaltungsappDB.filme where film_id = :film_ID and email = :email")
+    int deleteFilm(@Bind("film_ID") int film_ID, @Bind("email") String email);
 }

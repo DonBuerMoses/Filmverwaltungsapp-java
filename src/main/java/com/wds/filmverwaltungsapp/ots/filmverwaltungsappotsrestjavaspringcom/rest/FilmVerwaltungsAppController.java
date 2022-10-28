@@ -57,9 +57,9 @@ public class FilmVerwaltungsAppController {
         return filmeDao.getAllFilmeOfNutzer(email);
     }
 
-    @GetMapping(path = "filme/{email}/{film_id}")
-    public Film getFilmbyId(@PathVariable int film_id, @PathVariable String email) {
-        return filmeDao.getFilmById(film_id, email);
+    @GetMapping(path = "filme/{email}/{film_ID}")
+    public Film getFilmbyId(@PathVariable int film_ID, @PathVariable String email) {
+        return filmeDao.getFilmById(film_ID, email);
     }
 
     @PutMapping(path = "filme/{email}/{film_ID}")
@@ -78,7 +78,6 @@ public class FilmVerwaltungsAppController {
     public ResponseEntity<Void> insertFilm(@RequestBody Film film) {
 
         System.out.println(film);
-        film.setFilm_ID(filmeDao.getMaxId() + 1);
         if (filmeDao.insertFilm(film) == 1) {
             return ResponseEntity.ok().build();
         } else {
