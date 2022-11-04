@@ -103,6 +103,11 @@ public class FilmVerwaltungsAppController {
 
     @GetMapping(path = "/filmeinfos/{email}")
     public List<FilmInfoModel> getFilmeInfosOfNutzer(@PathVariable String email) {
-        return (new FilmInformation().getFilmInfosOfNutzer(filmeDao, speichermedienDao, email));
+        return (new FilmInformation().getFilmeInfosOfNutzer(filmeDao, speichermedienDao, email));
+    }
+
+    @GetMapping(path = "/filmeinfos/{email}/{film_ID}")
+    public FilmInfoModel getFilmeInfoOfNutzerById(@PathVariable Integer film_ID, @PathVariable String email) {
+        return (new FilmInformation().getFilmeInfoOfNutzerById(filmeDao, speichermedienDao, film_ID, email));
     }
 }

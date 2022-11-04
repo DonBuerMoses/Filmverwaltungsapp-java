@@ -13,6 +13,7 @@ public class FilmInfoModel {
     private String email;
     private int bewertung;
     private boolean favorit;
+    private int speichermedien_id;
     private String speichermedium;
 
 
