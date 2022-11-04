@@ -9,6 +9,9 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import java.util.List;
 
+/**
+ * Enthält alle SQL-Queries für die Filme-Tabelle
+ */
 public interface FilmeDao {
     @RegisterFieldMapper(Film.class)
     @SqlQuery("select * from filmverwaltungsappDB.filme a ")

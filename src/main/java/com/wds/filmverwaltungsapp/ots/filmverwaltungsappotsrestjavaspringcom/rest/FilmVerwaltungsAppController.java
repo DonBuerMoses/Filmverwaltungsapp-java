@@ -22,6 +22,12 @@ public class FilmVerwaltungsAppController {
     SpeichermedienDao speichermedienDao;
     NutzerDao nutzerDao;
 
+    /**
+     * Konstuktor
+     * @param filmeDao
+     * @param speichermedienDao
+     * @param nutzerDao
+     */
     public FilmVerwaltungsAppController(FilmeDao filmeDao, SpeichermedienDao speichermedienDao, NutzerDao nutzerDao) {
         this.filmeDao = filmeDao;
         this.speichermedienDao = speichermedienDao;

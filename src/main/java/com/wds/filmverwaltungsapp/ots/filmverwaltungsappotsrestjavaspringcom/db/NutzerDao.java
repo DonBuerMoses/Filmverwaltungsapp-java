@@ -6,6 +6,9 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 
 import java.util.List;
 
+/**
+ * Enthält alle SQL-Queries für die Nutzer-Tabelle
+ */
 public interface NutzerDao {
 
     @RegisterFieldMapper(Nutzer.class)

@@ -9,8 +9,17 @@ import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.mod
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Enthält alle Funktionen um die gewünschte FilmInfoModel-JSON zu bauen
+ */
 public class FilmInformation {
 
+    /**
+     * holt alle FilmeInfos
+     * @param filmeDao
+     * @param speichermedienDao
+     * @return
+     */
     public List<FilmInfoModel> getAllFilmeInfos(FilmeDao filmeDao, SpeichermedienDao speichermedienDao) {
         List<Film> filme = filmeDao.getAllFilme();
         List<FilmInfoModel> filmInfoModels = new ArrayList<>();
@@ -25,6 +34,13 @@ public class FilmInformation {
         return filmInfoModels;
     }
 
+    /**
+     * holt die FilmeInfos eines bestimmten Nutzers
+     * @param filmeDao
+     * @param speichermedienDao
+     * @param email
+     * @return
+     */
     public List<FilmInfoModel> getFilmeInfosOfNutzer(FilmeDao filmeDao, SpeichermedienDao speichermedienDao, String email) {
         List<Film> filme = filmeDao.getAllFilmeOfNutzer(email);
         List<FilmInfoModel> filmInfoModels = new ArrayList<>();
@@ -39,7 +55,14 @@ public class FilmInformation {
     }
 
 
-
+    /**
+     * holt die FilmeInfos eines bestimmten Nutzers von einem bestimmten Film
+     * @param filmeDao
+     * @param speichermedienDao
+     * @param film_ID
+     * @param email
+     * @return
+     */
     public FilmInfoModel getFilmeInfoOfNutzerById(FilmeDao filmeDao, SpeichermedienDao speichermedienDao, Integer film_ID, String email) {
         Film film = filmeDao.getFilmById(film_ID, email);
         //= new FilmInfoModel();

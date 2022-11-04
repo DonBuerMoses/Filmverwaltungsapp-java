@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Definiert die Attribute für die Speichermedien-JSON
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -9,8 +9,18 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 import java.util.Collections;
 
+/**
+ * Konfiguriert Datenbankverbindung mit Einstellungen in den properties;
+ * Definiert Dao Beans
+ */
 @Configuration
 public class DatabaseConfiguration {
+
+    /**
+     * instanziert eine neue JdbiFactoryBean mit den Datenbankeinstellungen von den Properties und gibt jdbiFactoryBean zurück.
+     * @param dataSource
+     * @return
+     */
     @Bean
     public JdbiFactoryBean jdbiFactoryBean(DataSource dataSource){
         JdbiFactoryBean jdbiFactoryBean = new JdbiFactoryBean(dataSource);
