@@ -91,6 +91,17 @@ public class FilmVerwaltungsAppController {
         }
     }
 
+    @PostMapping(path = "register")
+    public ResponseEntity<Void> insertNutzer(@RequestBody Nutzer nutzer) {
+
+        System.out.println(nutzer);
+        if (nutzerDao.insertNutzer(nutzer) == 1) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @DeleteMapping(path = "filme/{email}/{film_ID}")
     public ResponseEntity<Void> deleteFilm(@PathVariable int film_ID, @PathVariable String email) {
 
