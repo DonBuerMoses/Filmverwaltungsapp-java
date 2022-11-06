@@ -3,14 +3,14 @@ package com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.re
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.db.FilmeDao;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.db.NutzerDao;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.db.SpeichermedienDao;
-import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Film;
-import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Nutzer;
-import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.Speichermedium;
+import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.domain.*;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.logic.FilmInformation;
+import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.logic.TokenGenerator;
 import com.wds.filmverwaltungsapp.ots.filmverwaltungsappotsrestjavaspringcom.model.FilmInfoModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+//import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -22,16 +22,22 @@ public class FilmVerwaltungsAppController {
     SpeichermedienDao speichermedienDao;
     NutzerDao nutzerDao;
 
+    TokenGenerator tokenGenerator;
+
+    //AuthenticationManager authenticationManager;
+
     /**
      * Konstuktor
      * @param filmeDao
      * @param speichermedienDao
      * @param nutzerDao
      */
-    public FilmVerwaltungsAppController(FilmeDao filmeDao, SpeichermedienDao speichermedienDao, NutzerDao nutzerDao) {
+    public FilmVerwaltungsAppController(FilmeDao filmeDao, SpeichermedienDao speichermedienDao, NutzerDao nutzerDao, TokenGenerator tokenGenerator) {
         this.filmeDao = filmeDao;
         this.speichermedienDao = speichermedienDao;
         this.nutzerDao = nutzerDao;
+        //this.authenticationManager = authenticationManager;
+        this.tokenGenerator = tokenGenerator;
     }
 
 
@@ -54,6 +60,13 @@ public class FilmVerwaltungsAppController {
 
     @GetMapping(path = "/nutzer")
     public List<Nutzer> getAllNutzer() {
+        /*List<Nutzer> nutzerUnhashed;
+
+        nutzerUnhashed = nutzerDao.getAllNutzer();
+
+        nutzerUnhashed.forEach(nutzer -> {
+            nutzer.
+        });*/
 
         return nutzerDao.getAllNutzer();
     }
@@ -94,6 +107,7 @@ public class FilmVerwaltungsAppController {
     @PostMapping(path = "register")
     public ResponseEntity<Void> insertNutzer(@RequestBody Nutzer nutzer) {
 
+        //nutzer.setPasswort(BCrypt.hashpw(nutzer.getPasswort(), BCrypt.gensalt(4)));
         System.out.println(nutzer);
         if (nutzerDao.insertNutzer(nutzer) == 1) {
             return ResponseEntity.ok().build();
@@ -101,6 +115,29 @@ public class FilmVerwaltungsAppController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@RequestBody Nutzer loginRequest) {
+
+        String jwt = tokenGenerator.generateJwtToken(loginRequest.getName());
+        System.out.println("Token: " + jwt);
+
+        String email = nutzerDao.getEmailofNutzerByNameAndPasswort(loginRequest.getName(), loginRequest.getPasswort());
+
+        System.out.println(email);
+
+        if (email != null) {
+            System.out.println("Nutzer gefunden.");
+            return ResponseEntity.ok(new NutzerToken(jwt,
+                    loginRequest.getName(),
+                    email));
+        } else {
+            System.out.println("Nichts gefunden.");
+            return ResponseEntity.badRequest().body("Error: Nutzername oder Passwort falsch!");
+        }
+
+    }
+
 
     @DeleteMapping(path = "filme/{email}/{film_ID}")
     public ResponseEntity<Void> deleteFilm(@PathVariable int film_ID, @PathVariable String email) {
