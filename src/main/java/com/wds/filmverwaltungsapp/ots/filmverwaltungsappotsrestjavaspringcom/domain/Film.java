@@ -14,7 +14,7 @@ public class Film {
 
     private int film_ID;
     private String email;
-    private int bewertung;
+    private double bewertung;
     private boolean favorit;
     private int speichermedien_id;
 
